@@ -1,0 +1,22 @@
+{
+  "name": "todo-list-desktop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "electron": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joanarijo/todo-list-desktop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joanarijo/todo-list-desktop/issues"
+  },
+  "homepage": "https://github.com/joanarijo/todo-list-desktop#readme",
+  "dependencies": {
+    "electron": "^15.3.1"
+  }
+}
