@@ -8,5 +8,23 @@
 </head>
 <body>
     <h1>Todo List</h1>
+    <ul></ul>
+
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = electron;
+
+        ipcRenderer.on('todoadd', (event, todo) => {
+            const li = document.createElement('li');
+            const text = document.createTextNode(todo);
+
+            li.appendChild(text);
+            document.querySelector('ul').appendChild(li);
+        });
+
+        ipcRenderer.on('todoclear', () => {
+            document.querySelector('ul').innerHTML = "";
+        });
+    </script>
 </body>
 </html>

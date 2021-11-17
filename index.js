@@ -6,7 +6,7 @@ let mainWindow;
 let addWindow;
 
 app.on('ready', () => {
-   mainWindow = new BrowserWindow({});
+    mainWindow = new BrowserWindow({ webPreferences: { nodeIntegration: true , contextIsolation: false } });
    mainWindow.loadURL(`file://${__dirname}/main.html`);
    mainWindow.on('closed', () => app.quit());
 
@@ -16,6 +16,7 @@ app.on('ready', () => {
 
 function createAddWindow() {
     addWindow = new BrowserWindow({
+        webPreferences: { nodeIntegration: true , contextIsolation: false },
         width: 300,
         height: 200,
         title: 'Add New Todo'
@@ -35,6 +36,9 @@ const menuTemplate = [
         submenu: [
             { label: 'New Todo',
             click() { createAddWindow (); }
+        },
+            { label: 'Clear Todo List',
+            click() { mainWindow.webContents.send('todoclear'); }
         },
             { label: 'Quit',
             accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
@@ -57,12 +61,14 @@ if (process.platform === 'darwin')  {
 if (process.env.NODE_ENV !== 'production')  {
      menuTemplate.push({
         label: 'View',
-        submenu: [{
-            label: 'Toggle Developer Tools',
+        submenu: [
+            {role: 'reload'},
+            {label: 'Toggle Developer Tools',
             accelerator: process.platform === 'darwin' ? 'Command+Alt+I' : 'Ctrl+Shift+I',
             click(item, focusedWindow) {
                 focusedWindow.toggleDevTools();
-            }
-            }]
+            }}
+        ]
+
      });
 }
