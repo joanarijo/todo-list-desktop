@@ -21,10 +21,12 @@ function createAddWindow() {
         title: 'Add New Todo'
     });
     addWindow.loadURL(`file://${__dirname}/add.html`);
+    addWindow.on('closed', () => addWindow = null);
 }
 
 ipcMain.on('todoadd',  (event, todo) => {
     mainWindow.webContents.send('todoadd', todo);
+    addWindow.close();
 });
 
 const menuTemplate = [
